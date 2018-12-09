@@ -1,0 +1,42 @@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<div id="login" v-cloak>
+	<div class="container">
+		<h1 class="text-center">Accese a SIGED</h1>
+		<div class="login-form-container">
+			<hr/>
+			
+			
+			
+			<ajax-form action="login" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
+				<div class="form-group">
+					<input type="email" class="form-control" placeholder="Email Address" :class="[formErrors.emailAddress ? 'is-invalid' : '']" v-model.trim="formData.emailAddress" autocomplete="email" focus-first>
+					<div class="invalid-feedback" v-if="formErrors.emailAddress">Por favor, ingrese un correo electrónico valido.</div>
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" placeholder="Password" :class="[formErrors.password ? 'is-invalid' : '']" v-model.trim="formData.password" autocomplete="current-password">
+					<div class="invalid-feedback" v-if="formErrors.password">Por favor ingrese su contraseña.</div>
+				</div>
+				<div class="form-group form-check">
+					<input class="form-check-input" type="checkbox" id="remember" name="rememberMe" v-model="formData.rememberMe"/>
+					<label class="form-check-label" for="remember">Recordarme</label>
+				</div>
+				<p class="text-danger" v-if="cloudError==='badCombo'"><small>Los credenciales ingresados no han sido identificados. Por favor, revise su correo electrónico y/o contraseña y intente nuevamente. En caso de persistir el error <a href="/contact">Contacte a soporte</a></small></p>
+				<p class="text-danger" v-else-if="cloudError"><small>Ha ocurrido un error al procesar su solicitud. Por favor revise su información, o <a href="/contact">Contacte a soporte</a> Si el error persiste.</small></p>
+				<div class="form-group">
+					<ajax-button :syncing="syncing" class="btn-dark btn-lg btn-block">Acceder</ajax-button>
+				</div>
+			</ajax-form>
+			<div class="row text-center">
+				<template> 
+					
+					<div id="google-signin-btn" @submitted="onSignIn(event)"></div>
+
+				</template>
+			</div>
+<p class="text-center"><a href="/password/forgot">Olvidó su contraseña?</a></p>
+</div>
+</div>
+</div>
+
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

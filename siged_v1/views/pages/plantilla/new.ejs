@@ -1,0 +1,79 @@
+   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link href="/styles/pages/plantilla/editor.css" type="text/css" rel="stylesheet"/>
+	<script src="/js/pages/plantilla/editor.js"></script>
+<div id="new" v-cloak class="">
+  <div class=""  v-if="!cloudSuccess">
+    <ajax-form  action="newPlantilla" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm($event)" :handle-parsing="handleParsingForm" style="margin-top: 0px;">
+     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group" style=" background-color: #eceeef; margin-top:2px; height:45px;">
+       <ajax-button type="submit" :syncing="syncing" class="btn btn-success" id="save">Guardar</ajax-button>
+       <a class="salir btn btn-danger" name= "salir" id="salir">Salir</a>
+       <a class="salir btn btn-info" v-if="registro" name= "pdf" id="pdf" @Click="HtmlToPdf()">Exportar PDF</a>
+     </div>
+     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row"> 
+        <div class="col-md-6 form-group">
+          <div class="table-striped">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><span style="color: blue">Creado por:</span></th>
+                  <th>{{ me.fullName }}</th>                  
+                  <th><span style="color: blue">Editado por:</span></th>
+                  <th>{{ me.fullName }}</th>                  
+                </tr>
+              </thead>
+            </table>
+          </div>        
+        </div>
+      </div>
+        <div class="row table-striped">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">                  
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre del documento:</th>
+                <th>Asignar a la dependencia:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group" :class="[formErrors.titulo ? 'has-error' : '']">
+                  <input type="text" name="titulo" id="titulo" v-model.trim="formData.titulo" class="form-control" title="Nombre del documento">
+                     <small class="form-message light" v-if="formErrors.titulo">Por favor ingrese un nombre para el documento.</small>
+                    </div>
+                </td>
+                <td>
+                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group" :class="[formErrors.dependencia ? 'has-error' : '']">
+                  <select name="dependencia" v-model.trim="formData.dependencia" id="dependencia" class="form-control">
+                    <option v-for ="resp in response" v-bind:value="resp.id">{{resp.nombre}}</option>
+                  </select>
+                  <small class="form-message light" v-if="formErrors.dependencia">Por favor seleccione una dependencia.</small>
+                </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+    <div class="row">
+      <small class="form-message light" v-if="formErrors.plantilla">Por favor digite datos para la nueva plantilla.</small>
+
+    	<div id="txtEditor"></div>
+        
+
+      </div>             
+    </div>
+  </ajax-form>
+
+</div>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
+<script src="/js/pages/plantilla/new.page.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+ 

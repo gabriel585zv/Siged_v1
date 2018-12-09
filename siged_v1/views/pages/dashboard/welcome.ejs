@@ -1,0 +1,50 @@
+<style type="text/css">
+  tr.group,
+tr.group:hover {
+    background-color: #ddd !important;
+}
+</style>
+<div id="welcome">
+  <div class="row">
+    <div class="col-md-12 text-left">
+      <button type="button" class="btn btn-primary btn-md" @Click="newGestion()">Nueva gestión</button>
+    </div>
+  </div>
+  <div class="x_content">
+    <div class="table-responsive">
+
+      <table id="misDocumentos" class="table table-striped jambo_table bulk_action" style="width:100%">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Documento</th>
+            <th>Departamento</th>            
+            <th class="text-center">Versión</th>
+            <th>Público</th>
+            <th></th> 
+            <th v-if="me.isSuperAdmin"></th>
+            <th v-if="me.isSuperAdmin"></th>
+                      
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="res in response">
+            <td Style="color:black;"> {{ res.titulo }}</td>
+            <td Style="color:black;"> {{ res.doc }}</td>   
+            <td Style="color:black;"> {{ res.dependencia }}</td>                       
+            <td Style="color:black;" class="text-center"> {{ res.version }}</td>
+            <td Style="color:black;" v-if="res.publico">Si</td>
+            <td Style="color:black;" v-else>No</td>
+          
+            <td class="text-center" data-toggle="tooltip" data-placement="left" title="Ver documento para exportar"><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-file"></button></td>
+            <td  v-if="me.isSuperAdmin" data-toggle="tooltip" data-placement="left"  title="Editar documento" class="text-center"><button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit" v-if="res.autor == me.id"></button></td>
+            <td v-if="me.isSuperAdmin" data-toggle="tooltip" data-placement="left"  title="Enviar a histórico" class="text-center"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-history " v-if="res.autor == me.id"></button></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/pages/dashboard/welcome.page.js"></script>
+    <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

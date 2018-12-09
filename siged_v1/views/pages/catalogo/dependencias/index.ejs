@@ -1,0 +1,32 @@
+<div id="index" >
+  <div class="row">
+    <div class="col-md-12 text-left">
+      <button type="button" class="btn btn-primary btn-md" @Click="newGestion()">Nueva unidad</button>
+    </div>
+  </div>
+  <div class="x_content">
+    <div class="table-responsive">
+
+      <table id="dtDependencia" class="table table-striped jambo_table bulk_action" style="width:100%">
+        <thead>
+          <tr>
+            <th>Código de Unidad</th>
+            <th>Nombre asignado</th>
+            <th> </th>
+            <th> </th>              
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for ="resp in response">
+            <td>{{resp.homoclave}}</td>
+            <td>{{resp.nombre}}</td>
+            <td class="text-center"><a @click='editDependencia(resp.id)' class="btn btn-warning btn-sm"><i class="fa fa-edit"></a></td>
+              <td class="text-center"><a  @click='deleteDependencia(resp.id)' class="btn btn-danger btn-sm"><i class="fa fa-trash "></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/pages/catalogo/dependencias/index.page.js"></script>
+    <%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>

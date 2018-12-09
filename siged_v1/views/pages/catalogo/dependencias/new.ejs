@@ -1,0 +1,29 @@
+<div id="new" v-cloak class="container">
+  <div class="row"  v-if="!cloudSuccess">
+      <ajax-form  action="createUnidad" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm($event)" :handle-parsing="handleParsingForm" style="margin-top: 0px;">
+	    <div class="container form-group" style=" background-color: #eceeef; margin-top:2px; height:45px;">
+	      <ajax-button type="submit" :syncing="syncing" class="btn btn-success" id="save">Guardar</ajax-button>
+	      <a class="salir btn btn-danger" name= "salir" id="salir">Salir</a>
+	     </div>
+       <div class="container">
+        <div class="row">
+        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group" :class="[formErrors.nombre ? 'has-error' : '']">
+            <label for="clave">Homoclave</label>
+            <input class="form-control" id="clave" type="text" v-model.trim="formData.homoclave" placeholder="TI" autocomplete="name" focus-first>
+            <small class="form-message light" v-if="formErrors.homoclave">Por favor ingrese la homoclave.</small>
+          </div>
+        </div>
+        <div class="row">         
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group" :class="[formErrors.nombre ? 'has-error' : '']">
+            <label for="nombre">Primer Apellido</label>
+            <input class="form-control" id="nombre" type="text" v-model.trim="formData.nombre" placeholder="Tecnologias de la Informacion" autocomplete="name">
+            <small class="form-message light" v-if="formErrors.nombre">Por favor ingrese un nombre para la unidad.</small>
+          </div>
+        </div>               
+    </div>
+      </ajax-form>
+    
+  </div>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
+<script src="/js/pages/catalogo/dependencias/new.page.js"></script>

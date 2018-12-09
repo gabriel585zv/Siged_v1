@@ -1,0 +1,46 @@
+<div id="index" v-cloak>
+    <div class="row">
+      <div class="col-md-12 text-left">
+        <button type="button" name="btn btn-primary btn-md">Nuevo Usuario</button>
+      </div>
+    </div>
+    <div class="x_content">
+      <div class="table-responsive">
+
+        <table id="dtUsuarios" class="table table-striped jambo_table bulk_action" style="width:100%">
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Nombre completo</th>
+              <th>E-mail</th>
+              <th class="text-center">Administrador</th>
+              <th class="text-center">Google ID</th>
+              <th v-if="me.isSuperAdmin" class="text-center">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="response in response">
+                <td v-if="response.estado"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABQ0lEQVQ4jWNgGIZgiRAfwwrhTIaVousYVogeh9DCmQxLhPgIa54kxMewRGSW+kHL+/53Er5FPsr663c7/pvaAYv7DEtEZjFMImTIAsFMtb3m9/2vJ/x3OxcOx75X4/4r7jC+z7BAMBO/AbOE1jmdDflmccDzv9k+9//62x3+a2yw/K++3uK//i77bwyzhNbhN2Aq/3Gn08F/1Tdb/Bdbpv5fcJESHEus0PzLMJX/OH4DennXae61+ia4Sek/Bl6r+I2hl5eAC9p4MvkWyt4XO6b+X/CoEgIfUfrPPk/0PkMbD4EwMGfgY6jmmsUxV/g+/zG5bwKXFP/yHpX9xj5X6D5DNdcsBnMGglHJxiDIoMfgzlTLkMi8kSGZ5ThDIvNGBnemWgZ+BhMGBgYeQgYwMzAwCDMwMEhhwWIMDAxshAwYggAA2D99kGfEWzYAAAAASUVORK5CYII="/> 
+                </td>
+                <td v-else>
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABQ0lEQVQ4jd3NsWrCUBSA4QOFKqRwwUKHvkCgUyGIEByyZEgWyV0KooPQKYi0VOzeV8gQCAGzaCRZbHJDCbZE6BIc3CSuouI7WMLtoh1KSTp74OdM5zsApzeSJBUwxmWM8R3G+P6wy5IkFf51rChKzTTN/nK5XK9Wq32SJGvDMPqKotRyEVmWK7quW0mSpPP5nB5bLBappmmWLMuVTEAUxWYcx5vpdEqjKKJhGFJCCPU8jwZBsBFFsZkJCILQns1me0IIHY0cOhgMf3Icdy8IQjsT4Hm+5ftvW9d9pb+zrOGW5/lWJsBxXLXbfbZ9/yP1vHd6bDyepJ3Ok81xXDUTAIAiy7INVX10bZvsguDzy7bJTlUfXJZlGwBQzAPOAeCGYZg6QqhXKpVeEEI9hmHqAHALABd5wBkAXALA9R9dHR6c2nwD2oeioev3hu8AAAAASUVORK5CYII=">
+                </td>
+                <td>{{ response.fullName }}</td>
+                <td>{{ response.emailAddress }}</td>
+                <td class="text-center" v-if="response.isSuperAdmin">Si</td>
+                <td class="text-center" v-else>No</td>
+                <td class="text-center" v-if="response.googleId">Si</td>
+                <td class="text-center" v-else>No</td>
+                <td class="text-center" v-if="response.estado && me.isSuperAdmin"><a  @click='bloqueaUsuario(response.id)' class="btn btn-danger btn-sm"><i class="fa fa-lock"></a></td>
+                <td class="text-center" v-else if="!response.estado && me.isSuperAdmin"><a  @click='desbloqueaUsuario(response.id)' class="btn btn-default btn-sm"><i class="fa fa-unlock"></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  <!--<h1>TODO: Implement this page.</h1>
+  <p>(See also <em>assets/styles/pages/catalogo/usuarios/index.less</em>, <em>assets/js/pages/catalogo/usuarios/index.page.js</em>, and <em>api/controllers/catalogo/usuarios/view-index.js</em>.)</p>
+  -->
+</div>
+<script type="text/javascript" src="/js/pages/catalogo/usuarios/index.page.js"></script>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
