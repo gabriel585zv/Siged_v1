@@ -58,13 +58,15 @@ var init = function(){
     methods: {
           //…
           HtmlToPdf : function() {
-            var html ="<body>HOLA MUNDO</body>";
+            var text=$( ".Editor-editor" );
+             var html =text.html();
             var endpoint = 'https://v2018.api2pdf.com/chrome/html';
+
             var apikey = 'a164079a-857f-4f66-9f7c-def3b7154c07'; //api key id
             var payload = {
               "html": html,
-              "inlinePdf": false
-            };
+              "inlinePdf": false,
+             };
             $.ajax({
               url: endpoint,
               method: "POST",
