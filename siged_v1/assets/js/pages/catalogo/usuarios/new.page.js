@@ -1,19 +1,19 @@
-var init = function(){
-  var vue = parasails.registerPage('signup', {
+var init = function() {
+  parasails.registerPage('new', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    // Form data
-    formData: { /* … */ 
+      // Form data
+      formData: { /* … */ 
 
-      googleId : '', 
+        googleId : '', 
 
-    },
+      },
 
     // For tracking client-side validation errors in our form.
     // > Has property set to `true` for each invalid property in `formData`.
-    formErrors: { /* … */ },
+  formErrors: { /* … */ },
 
     // Syncing / loading state
     syncing: false,
@@ -25,8 +25,6 @@ var init = function(){
     cloudSuccess: false,
 
     isFirst : false,
-
-
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -35,44 +33,32 @@ var init = function(){
   beforeMount: function() {
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
-
   },
   mounted: async function() {
     //…
     $("[id*=salir]").click(function(){           
-          window.top.$("#unidad").iziModal("close");
+      window.top.$("#usuario").iziModal("close");
     });
-    
-    /*gapi.signin2.render('google-signin-btn', {
-      onsuccess: function(googleUser){
-        if(vue.isFirst){
-          var profile = googleUser.getBasicProfile();               
-                        
-        }
-        vue.isFirst = true;
-      }
-
-    });*/
-          
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
-   
+    //…  
     submittedForm: async function() {
-      if(this.isEmailVerificationRequired) {
-        // If email confirmation is enabled, show the success message.
-        this.cloudSuccess = true;
-      }
-      else {
-        // Otherwise, redirect to the logged-in dashboard.
-        // > (Note that we re-enable the syncing state here.  This is on purpose--
-        // > to make sure the spinner stays there until the page navigation finishes.)
-        this.syncing = true;
-        window.location = '/';
-      }
+       if (Object.keys(this.formErrors).length > 0) {
+            
+            return;
+
+          }else{
+
+            window.parent.iziToast.success({
+                title: 'Mensaje del sistema',
+                message: 'Se ha registrado a '+this.formData.fullName,
+            });
+            
+          }
     },
 
     handleParsingForm: function() {
@@ -100,12 +86,6 @@ var init = function(){
       if(argins.password && argins.password !== argins.confirmPassword) {
         this.formErrors.confirmPassword = true;
       }
-
-      // Validate ToS agreement:
-      if(!argins.agreed) {
-        this.formErrors.agreed = true;
-      }
-
       // If there were any issues, they've already now been communicated to the user,
       // so simply return undefined.  (This signifies that the submission should be
       // cancelled.)
@@ -118,5 +98,4 @@ var init = function(){
 
   }
 });
-
 }

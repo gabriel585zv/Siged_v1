@@ -39,8 +39,11 @@ var init = function(){
   },
   mounted: async function() {
     //…
-
-    gapi.signin2.render('google-signin-btn', {
+    $("[id*=salir]").click(function(){           
+          window.top.$("#unidad").iziModal("close");
+    });
+    
+    /*gapi.signin2.render('google-signin-btn', {
       onsuccess: function(googleUser){
         if(vue.isFirst){
           var profile = googleUser.getBasicProfile();               
@@ -49,7 +52,7 @@ var init = function(){
         vue.isFirst = true;
       }
 
-    });
+    });*/
           
   },
 

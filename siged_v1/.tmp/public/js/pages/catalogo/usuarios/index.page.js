@@ -60,6 +60,17 @@ var vue = parasails.registerPage('index', {
       });
         return dataT;
       },
+      newUser : function (){
+          var configModal = {
+          title: 'Gestionar usuario',
+          subtitle: '',
+          headerColor: '#88A0B9',
+          background: '#FFFFFF',
+          theme: 'dark',
+          iframeURL :'./newUser',        
+        };
+        window.top.newModal("usuario",configModal);        
+      },
       bloqueaUsuario : function(id){
       //deleteDependencia: function(id){  
         //Por favor se trata de reutilizar  esto no se hace! se debe cambiar el nombre de las funciones

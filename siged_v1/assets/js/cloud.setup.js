@@ -20,14 +20,16 @@ Cloud.setup({
   "updateBillingCard":{"verb":"PUT","url":"/api/v1/account/update-billing-card","args":["stripeToken",
   "billingCardLast4","billingCardBrand","billingCardExpMonth","billingCardExpYear"]},
   "login":{"verb":"PUT","url":"/api/v1/entrance/login","args":["emailAddress","password","rememberMe"]},
-  "signup":{"verb":"POST","url":"/api/v1/entrance/signup","args":["emailAddress","password","fullName"]},
+  "signup":{"verb":"POST","url":"/api/v1/entrance/signup","args":["emailAddress","password","fullName","isSuperAdmin"]},
   "sendPasswordRecoveryEmail":{"verb":"POST","url":"/api/v1/entrance/send-password-recovery-email","args":["emailAddress"]},
   "updatePasswordAndLogin":{"verb":"POST","url":"/api/v1/entrance/update-password-and-login","args":["password","token"]},
   "deliverContactFormMessage":{"verb":"POST","url":"/api/v1/deliver-contact-form-message","args":["emailAddress","topic","fullName","message"]},
   "createUnidad":{"verb":"POST","url":"/api/v1/catalogo/dependencias/create","args":["clave","nombre"]},
   "editUnidad":{"verb":"POST","url":"/api/v1/catalogo/dependencias/edit","args":["clave","nombre"]},
   "destroyDep":{"verb":"POST","url":"/api/v1/catalogo/dependencias/destroy","args":["id"]},
-  "newPlantilla":{"verb":"POST","url":"/api/v1/plantilla/new","args":["plantilla","dependencia","plantilla"]},
+  "newPlantilla":{"verb":"POST","url":"/api/v1/plantilla/new","args":["titulo","dependencia","plantilla"]},
+  "newUser":{"verb":"POST","url":"/api/v1/catalogo/usuarios/create-user","args":["emailAddress","password","fullName","isSuperAdmin"]},
+  
 }
   /* eslint-enable */
 

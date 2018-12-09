@@ -76,8 +76,8 @@ module.exports.custom = {
   * (https://dashboard.stripe.com/account/apikeys)                          *
   *                                                                         *
   **************************************************************************/
-   stripePublishableKey: 'sandbox85c4addcfa80457aa55d63bb5688a381.mailgun.org',
-   stripeSecret: '4dfc828596d0ba722ceddf3ffd7f6e45-52cbfb43-b80ad45c',
+  stripePublishableKey: 'sandbox85c4addcfa80457aa55d63bb5688a381.mailgun.org',
+  stripeSecret: '4dfc828596d0ba722ceddf3ffd7f6e45-52cbfb43-b80ad45c',
   //--------------------------------------------------------------------------
   // /\  Configure these to enable support for billing features.
   // ||  (Or if you don't need billing, feel free to remove them.)

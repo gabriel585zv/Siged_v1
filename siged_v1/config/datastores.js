@@ -49,9 +49,9 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
      adapter: 'sails-mysql',
-    url: 'mysql://root@localhost:8000/siged',
+      //url: 'mysql://root@localhost:8000/siged',
      //url: 'mysql://cfallas:fallas@192.168.0.103:3306/siged',
-     //url: 'mysql://cfallas:fallas@192.168.0.106:3306/siged',
+     url: 'mysql://cfallas:fallas@192.168.0.103:3306/siged',
   //   url: 'mysql://cfallas:fallas@192.168.43.124:3306/siged',
   },
 

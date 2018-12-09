@@ -60,8 +60,7 @@ module.exports.bootstrap = async function(done) {
 
   // By convention, this is a good place to set up fake data during development.
   await User.createEach([
-    { emailAddress: 'carlosfallas3@gmail.com', fullName: 'Carlos Fallas Godínez', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('fallas') },
-     { emailAddress: 'demosiged@gmail.com', fullName: 'Proyecto Contenedor en Gmail', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('SailsMVC1.0') },
+    { emailAddress: 'admin@gmail.com', fullName: 'Proyecto Contenedor en Gmail', isSuperAdmin: true, password: await sails.helpers.passwords.hashPassword('admin') },
   ]);
 
 

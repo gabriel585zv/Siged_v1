@@ -29,8 +29,10 @@ module.exports.routes = {
   'GET /contact':            { view:   'pages/contact' },
 
   'GET /signup':             { action: 'entrance/view-signup' },
+  'GET /newUser' :           { action: 'catalogo/usuarios/view-new' ,  locals: { layout: 'layouts/layoutModal'} }, 
   'GET /email/confirm':      { action: 'entrance/confirm-email' },
   'GET /email/confirmed':    { view:   'pages/entrance/confirmed-email' },
+
 
   'GET /login':              { action: 'entrance/view-login' },
   'GET /password/forgot':    { action: 'entrance/view-forgot-password' },
@@ -60,10 +62,13 @@ module.exports.routes = {
   'PUT   /api/v1/account/update-billing-card':        { action: 'account/update-billing-card' },
   'PUT   /api/v1/entrance/login':                        { action: 'entrance/login' },
   'POST  /api/v1/entrance/signup':                       { action: 'entrance/signup' },
+  'POST  /api/v1/catalogo/usuarios/create-user':              { action: 'catalogo/usuarios/create-user' },
   'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
   
+
+
   //NUEVOS ACTIONS
   'POST /api/v1/catalogo/dependencias/create': { action: 'catalogo/dependencias/create' },
   'POST /api/v1/catalogo/dependencias/edit': { action: 'catalogo/dependencias/edit' },

@@ -95,10 +95,10 @@ var init = function(){
           
           if (Object.keys(this.formErrors).length > 0) {
 
-            return;
-
+            this.cloudSuccess = false;
+        
           }else{
-
+            this.syncing = true;
             window.parent.iziToast.success({
               title: 'Mensaje del sistema',
               message: 'Se ha incluido la nueva plantilla!.',
@@ -127,11 +127,21 @@ var init = function(){
           if(!argins.dependencia) {
             this.formErrors.dependencia = true;
           }
-
+          
           if(!argins.plantilla){
             this.formErrors.plantilla=true;
           }
          
+          if (Object.keys(this.formErrors).length > 0) {
+            if(this.formErrors.plantilla){
+                window.parent.iziToast.error({
+                title: 'Error',
+                message: 'Por favor formule su plantilla',
+                 });
+
+            }
+            return;
+          }
           return argins;
       }
     }

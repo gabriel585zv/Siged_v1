@@ -79,7 +79,7 @@ the account verification message.)`,
       password: await sails.helpers.passwords.hashPassword(inputs.password),
       fullName: inputs.fullName,
       tosAcceptedByIp: this.req.ip,
-      isSuperAdmin : false
+      isSuperAdmin : inputs.isSuperAdmin
     }, sails.config.custom.verifyEmailAddresses? {
       emailProofToken: await sails.helpers.strings.random('url-friendly'),
       emailProofTokenExpiresAt: Date.now() + sails.config.custom.emailProofTokenTTL,
@@ -104,8 +104,10 @@ the account verification message.)`,
       sails.log.info('Skipping new account email verification... (since `verifyEmailAddresses` is disabled)');
     }
 
-    // Since everything went ok, send our 200 response.
-    return exits.success();
+   var response = await User.find();
+    sails.sockets.broadcast('room','getUsuario',{response: response});//,req para que lo mande a todos    
+    return this.res.ok();
+
 
   }
 
