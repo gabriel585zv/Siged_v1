@@ -47,7 +47,10 @@ module.exports = {
       passwordResetToken: token,
       passwordResetTokenExpiresAt: Date.now() + sails.config.custom.passwordResetTokenTTL,
     });
-
+      sails.log("USER: "+userRecord.fullName);
+      sails.log("LLEGA AQUI!");
+      sails.log("email "+inputs.emailAddress);
+      sails.log("-: "+token);
     // Send recovery email
     await sails.helpers.sendTemplateEmail.with({
       to: inputs.emailAddress,

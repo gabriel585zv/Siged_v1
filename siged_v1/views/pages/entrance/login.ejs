@@ -1,13 +1,13 @@
+<meta name="google-signin-client_id" content="641343193559-6pkb72i79drttdor67ig17bai8mfj5si.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-
 <div id="login" v-cloak>
 	<div class="container">
-		<h1 class="text-center">Accese a SIGED</h1>
 		<div class="login-form-container">
+			<div>
+			   <img style="width:25%;  height: 25%; margin-left: 35%;" src="/images/siged.png" alt="" class="img-circle profile_img">
+			</div>
+
 			<hr/>
-			
-			
-			
 			<ajax-form action="login" :syncing.sync="syncing" :cloud-error.sync="cloudError" :form-data="formData" :form-rules="formRules" :form-errors.sync="formErrors" @submitted="submittedForm()">
 				<div class="form-group">
 					<input type="email" class="form-control" placeholder="Email Address" :class="[formErrors.emailAddress ? 'is-invalid' : '']" v-model.trim="formData.emailAddress" autocomplete="email" focus-first>
@@ -27,10 +27,10 @@
 					<ajax-button :syncing="syncing" class="btn-dark btn-lg btn-block">Acceder</ajax-button>
 				</div>
 			</ajax-form>
-			<div class="row text-center">
+			<div class="row">
 				<template> 
 					
-					<div id="google-signin-btn" @submitted="onSignIn(event)"></div>
+					<div style="margin-left: 25%;"id="google-signin-btn" @submitted="onSignIn(event)"></div>
 
 				</template>
 			</div>

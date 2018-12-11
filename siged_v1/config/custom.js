@@ -51,15 +51,15 @@ module.exports.custom = {
   * (https://app.mailgun.com/app/domains)                                   *
   *                                                                         *
   **************************************************************************/
-   mailgunDomain: 'sandbox85c4addcfa80457aa55d63bb5688a381.mailgun.org',
-   mailgunSecret: '4dfc828596d0ba722ceddf3ffd7f6e45-52cbfb43-b80ad45c',
+   mailgunDomain: 'sandboxacc616bb31c243cc97e358e0d85bc400.mailgun.org',
+   mailgunSecret: 'd9095449d7ad43f3cf9a429e8cebec4f-a5d1a068-e9027948',
   //--------------------------------------------------------------------------
   // /\  Configure these to enable support for automated emails.
   // ||  (Important for password recovery, verification, contact form, etc.)
   //--------------------------------------------------------------------------
 
   // The sender that all outgoing emails will appear to come from.
-  fromEmailAddress: 'postmaster@sandbox85c4addcfa80457aa55d63bb5688a381.mailgun.org',
+  fromEmailAddress: 'postmaster@sandboxacc616bb31c243cc97e358e0d85bc400.mailgun.org',
   fromName: 'SIGED',
 
   // Email address for receiving support messages & other correspondences.
@@ -67,7 +67,7 @@ module.exports.custom = {
 
   // Whether to require proof of email address ownership any time a new user
   // signs up, or when an existing user attempts to change their email address.
-  verifyEmailAddresses: false,
+  verifyEmailAddresses: false, 
 
   /**************************************************************************
   *                                                                         *
@@ -76,8 +76,8 @@ module.exports.custom = {
   * (https://dashboard.stripe.com/account/apikeys)                          *
   *                                                                         *
   **************************************************************************/
-  stripePublishableKey: 'sandbox85c4addcfa80457aa55d63bb5688a381.mailgun.org',
-  stripeSecret: '4dfc828596d0ba722ceddf3ffd7f6e45-52cbfb43-b80ad45c',
+ // stripePublishableKey: 'sandbox85c4addcfa80457aa55d63bb5688a381.mailgun.org',
+ // stripeSecret: '4dfc828596d0ba722ceddf3ffd7f6e45-52cbfb43-b80ad45c',
   //--------------------------------------------------------------------------
   // /\  Configure these to enable support for billing features.
   // ||  (Or if you don't need billing, feel free to remove them.)

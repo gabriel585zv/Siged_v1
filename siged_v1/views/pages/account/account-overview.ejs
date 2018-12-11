@@ -1,4 +1,5 @@
-
+<meta name="google-signin-client_id" content="641343193559-6pkb72i79drttdor67ig17bai8mfj5si.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="account-overview" v-cloak>
   <div class="container">
     <div class="row">
@@ -22,10 +23,6 @@
         </div>
         <div class="row">
           <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Correo-electrónico:</div>
-          <div class="col">
-            <strong :class="[me.emailStatus === 'unconfirmed' || me.emailStatus === 'changeRequested' ? 'text-muted' : '']">{{me.emailChangeCandidate ? me.emailChangeCandidate : me.emailAddress}}</strong>
-            <span v-if="me.emailStatus === 'unconfirmed' || me.emailStatus === 'changeRequested'" class="badge badge-pill badge-warning">Unverified</span>
-          </div>
         </div>
         <hr/>
         <div class="row mb-3">
@@ -43,6 +40,17 @@
           <div class="col"><strong>••••••••••</strong></div>
         </div>
         <hr/>
+        <div class="row mb-3" >
+          <div class="col-sm-6">
+            <h4>Has iniciadio sesión con {{ me.emailAddress }}</h4>
+          </div>
+          <div class="col-sm-6">
+            <span class="float-sm-right">
+              <div id="gSignIn" class="g-signin2" data-onsuccess="onSignIn"></div>
+            </span>
+          </div>
+        </div>
+        <hr/ v-if="isGoogle()">
       </div>
     </div>
   </div>

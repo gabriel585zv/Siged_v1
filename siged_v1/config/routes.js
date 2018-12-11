@@ -45,6 +45,7 @@ module.exports.routes = {
   'GET /user/subscribe': 'entrance/UserController.subscribe',
   'GET /user/conected': 'entrance/UserController.userConected',
 
+  'GET /setIdgoogle': { action: 'catalogo/usuarios/google-id' },
   'GET /logle': 'entrance/GoogleController.validar',
   'GET /dependencia/destroy/:id': { action: 'catalogo/dependencias/destroy' },
   'GET /usuarios/destroy/:id': { action: 'catalogo/usuarios/destroy' },

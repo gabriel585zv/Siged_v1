@@ -89,7 +89,7 @@ the account verification message.)`,
     .intercept({name: 'UsageError'}, 'invalid')
     .fetch();
 
-    if (sails.config.custom.verifyEmailAddresses) {
+   /* if (sails.config.custom.verifyEmailAddresses) {
       // Send "confirm account" email
       await sails.helpers.sendTemplateEmail.with({
         to: newEmailAddress,
@@ -102,7 +102,7 @@ the account verification message.)`,
       });
     } else {
       sails.log.info('Skipping new account email verification... (since `verifyEmailAddresses` is disabled)');
-    }
+    }*/
 
    var response = await User.find();
     sails.sockets.broadcast('room','getUsuario',{response: response});//,req para que lo mande a todos    

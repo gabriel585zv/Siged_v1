@@ -1,5 +1,5 @@
 var init = function(){
-parasails.registerPage('account-overview', {
+ var vue=parasails.registerPage('account-overview', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -14,7 +14,7 @@ parasails.registerPage('account-overview', {
     syncingRemoveCard: false,
 
     // Form data
-    formData: { /* … */ },
+  formData: { /* … */ },
 
     // Server error state for the form
     cloudError: '',
@@ -24,12 +24,15 @@ parasails.registerPage('account-overview', {
 
     // For the confirmation modal:
     removeCardModalVisible: false,
+    isFirst : false,
+    isRegistered :false,
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
   //  ║  ║╠╣ ║╣ ║  ╚╦╝║  ║  ║╣
   //  ╩═╝╩╚  ╚═╝╚═╝ ╩ ╚═╝╩═╝╚═╝
   beforeMount: function (){
+
     _.extend(this, window.SAILS_LOCALS);
 
     this.isBillingEnabled = !!this.stripePublishableKey;
@@ -40,84 +43,77 @@ parasails.registerPage('account-overview', {
       this.me.billingCardLast4 &&
       this.me.billingCardExpMonth &&
       this.me.billingCardExpYear
-    );
+      );
   },
   mounted: async function() {
     //…
-  },
+   // this.loadGoogle(vue.isFirst); 
+   gapi.signin2.render('gSignIn', {
+    'scope': 'profile email',
+    'width': 240,
+    'height': 50,
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': function(user) {
+      gapi.auth2.getAuthInstance().disconnect();
+      if(vue.isRegistered){
+        $("[id*=not_signed]").html('Actualizar google ID');
+        $("[id*=connected]").html('Actualizar google ID');
+      }else{
+        $("[id*=not_signed]").html('Setear google ID');
+        $("[id*=connected]").html('Setear google ID');             
+      }  
 
+      if(vue.isFirst){
+       var profile = user.getBasicProfile();
+       console.log(profile.getEmail());
+       $.ajax({
+        url: "/setIdgoogle",
+        data:{
+          id: profile.getId(),
+          emailAddress: profile.getEmail(),
+        },
+        success: function(data){                   
+          if(data.isRegistered){
+            vue.isRegistered = data.isRegistered;
+            iziToast.success({
+              title: 'Mensaje del Sistema',
+              message: 'ID de google registrado con éxito!.',
+            });
+          }else{
+            iziToast.error({
+              title: 'Mensaje del Sistema',
+              message: 'Ha ocurrido un error al procesar su solicitud.',
+            });
+          }
+        }
+      }); 
+     }else{
+      vue.isFirst = true;
+    }
+
+  },
+  'onfailure':function(err) {
+    console.log('Google signIn2.render button err: ' + err);
+  }           
+});
+
+
+ },
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
+    isGoogle : function(){
+     var mail = this.me.emailAddress;              
 
-    clickStripeCheckoutButton: async function() {
-
-      // Prevent double-posting if it's still loading.
-      if(this.syncingUpdateCard) { return; }
-
-      // Show syncing state for opening checkout.
-      this.syncingOpenCheckout = true;
-
-      // Clear out error states.
-      this.cloudError = false;
-
-      // Open Stripe Checkout.
-      var billingCardInfo = await parasails.util.openStripeCheckout(this.stripePublishableKey, this.me.emailAddress);
-      // Clear the loading state for opening checkout.
-      this.syncingOpenCheckout = false;
-      if (!billingCardInfo) {
-        // (if the user canceled the dialog, avast)
-        return;
-      }
-
-      // Now that payment info has been successfully added, update the billing
-      // info for this user in our backend.
-      this.syncingUpdateCard = true;
-      await Cloud.updateBillingCard.with(billingCardInfo)
-      .tolerate(()=>{
-        this.cloudError = true;
-      });
-      this.syncingUpdateCard = false;
-
-      // Upon success, update billing info in the UI.
-      if (!this.cloudError) {
-        Object.assign(this.me, _.pick(billingCardInfo, ['billingCardLast4', 'billingCardBrand', 'billingCardExpMonth', 'billingCardExpYear']));
-        this.me.hasBillingCard = true;
-      }
-    },
-
-    clickRemoveCardButton: async function() {
-      this.removeCardModalVisible = true;
-    },
-
-    closeRemoveCardModal: async function() {
-      this.removeCardModalVisible = false;
-      this.cloudError = false;
-    },
-
-    submittedRemoveCardForm: async function() {
-
-      // Update billing info on success.
-      this.me.billingCardLast4 = undefined;
-      this.me.billingCardBrand = undefined;
-      this.me.billingCardExpMonth = undefined;
-      this.me.billingCardExpYear = undefined;
-      this.me.hasBillingCard = false;
-
-      // Close the modal and clear it out.
-      this.closeRemoveCardModal();
-
-    },
-
-    handleParsingRemoveCardForm: function() {
-      return {
-        // Set to empty string to indicate the default payment source
-        // for this customer is being completely removed.
-        stripeToken: ''
-      };
-    },
-
+     if(mail.split("@")[1] == "gmail.com"){
+      return true;
+    }else{
+      return false;
+    }
   }
+
+}
 });
 }

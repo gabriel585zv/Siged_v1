@@ -1,4 +1,4 @@
-parasails.registerPage('login', {
+var vue = parasails.registerPage('login', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
@@ -35,19 +35,27 @@ parasails.registerPage('login', {
   },
   mounted: async function() {      
 
-      gapi.signin2.render('google-signin-btn', {
-        onsuccess: function(googleUser){
-          if(this.isFirst){
-            var profile = googleUser.getBasicProfile();               
-            $.ajax({
+
+   gapi.signin2.render('google-signin-btn', {
+    'scope': 'profile email',
+    'width': 240,
+    'height': 50,
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': function(user) {
+
+        
+      gapi.auth2.getAuthInstance().disconnect();
+      if(vue.isFirst){
+       var profile = user.getBasicProfile();
+           $.ajax({
               url: "/logle",
               data:{
                 Id: profile.getId(),
                 emailAddress: profile.getEmail(),
                 photo: profile.getImageUrl()                  
               },
-              success: function(data){ 
-              console.log('ENTRO ESTA VERGA!');                   
+              success: function(data){                   
                 if(data.response.length > 0){
                   iziToast.warning({
                     title: 'Mensaje del Sistema',
@@ -57,12 +65,18 @@ parasails.registerPage('login', {
                  window.location = '/';
                }
              }
-           });               
-          }
-          this.isFirst = true;
-        }
-      });
+           });                
+     }else{
+      vue.isFirst = true;
+    }
 
+  },
+  'onfailure':function(err) {
+    console.log('Google signIn2.render button err: ' + err);
+  }           
+});
+         $("[id*=not_signed]").html('Ingresar con Google');
+        $("[id*=connected]").html('Ingresar con Google');
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
